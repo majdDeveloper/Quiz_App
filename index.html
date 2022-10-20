@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;500;700&family=Neonderthaw&family=Syne+Tactile&family=Work+Sans:ital,wght@0,300;0,500;1,200;1,400;1,700&display=swap" rel="stylesheet">
+    <title>Quiz App</title>
+</head>
+<body>
+    <div class="border"></div>
+    <div class="quiz">
+        <div class="container">
+            <div class="quiz_info">
+                <div class="title_quiz">Quiz HTML</div>
+                <div class="agin">Try Agin</div>
+                <div class="num_question"></div>
+            </div>
+            <div class="question">  
+            </div>
+            <div class="answer_area">
+            </div>
+            <div class="count_ques">
+                <span class="seconds"></span>
+                <p class="next">Next<i class="fa-solid fa-angle-right fa-fw"></i></p>
+            </div>
+            <div class="loc">
+            </div>
+            <div class="result" style="display: none;">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>question</th>
+                            <th>Right Answer</th>
+                            <th>Your Answer</th>
+                            <th>Checked</th>
+                        </tr>
+                    </thead>
+                    <body>
+                    </body>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="./code.js"></script>
+</body>
+</html>

@@ -14,7 +14,7 @@ let num_q = 0;
 let r_answer = 0;
 let countdownInterval;
 let width_border = 0;
-
+let time_q = 6
 // Access Json File 
 function getFileQuestions() {
     let myRequest = new XMLHttpRequest();
@@ -24,11 +24,11 @@ function getFileQuestions() {
             let questionNum = question.length;
             num_questions(questionNum);
             add_question(question[num_q], questionNum)
-            countdown(6, questionNum);
+            countdown(time_q, questionNum);
             // Case Click Button Next
             next_q.onclick = () => {
                 // Case Click Button Next Change Width Border_Top
-                width_border += 10
+                width_border += question.length
                 border.style.width = `${width_border}%`;
                 let right_a = question[num_q].right_answer;
                 let sup_question = question[num_q].title;
@@ -42,15 +42,16 @@ function getFileQuestions() {
 
                 // Get Function Add Question And Option_Answers
                 add_question(question[num_q], questionNum)
-                if (num_q == 9) {
+                if (num_q == question.length) {
                     next_q.innerHTML = "Finish And Delivery";
                 }
 
                 // Stop Timer
                 clearInterval(countdownInterval);
+                timeOut.innerHTML = `00:${time_q < 10 ? `0${time_q}` : time_q}`;
 
                 // Get Function calculator Time 
-                countdown(6, questionNum);
+                countdown(time_q, questionNum);
             }
         }
     }
@@ -74,13 +75,13 @@ function num_questions(num) {
             }
         }
     } else {
-        if (r_answer >= 0) {
+        if (r_answer >= 8) {
             count.innerHTML = ` ${r_answer} From ${num_q} Is Bad`
             count.style.backgroundColor = "red";
         } else if(r_answer >= 5) {
             count.innerHTML = ` ${r_answer} From ${num_q} Is Good`
             count.style.backgroundColor = "#0075ff";
-        } else if(r_answer >= 7) {
+        } else if(r_answer >= 0) {
             count.innerHTML = ` ${r_answer} From ${num_q} Is Nice`
             count.style.backgroundColor = "#42855B";
         }
@@ -117,6 +118,7 @@ function add_question(obj, count) {
         }
     } else {
         result.style.display = "block";
+
         //Try_Agin Quiz
         try_agin.style.display = "block";
         try_agin.onclick = () => {
@@ -185,20 +187,26 @@ function check_answer(question, right_answer, count_q) {
 
 // Calculator Time 
 function countdown(duration, count) {
+    let maxTime = duration;
     if (num_q < count) {
       let minutes, seconds;
       countdownInterval = setInterval(function () {
-        minutes = parseInt(duration / 60);
-        seconds = parseInt(duration % 60);
-  
-        minutes = minutes < 10 ? `0${minutes}` : minutes;
-        seconds = seconds < 10 ? `0${seconds}` : seconds;
-  
-        timeOut.innerHTML = `${minutes}:${seconds}`;
-  
-        if (--duration <= 0) {
+        function transform_time(valueTime) {
+            minutes = parseInt(valueTime / 60);
+            seconds = parseInt(valueTime % 60);
+      
+            minutes = minutes < 10 ? `0${minutes}` : minutes;
+            seconds = seconds < 10 ? `0${seconds}` : seconds;
+            timeOut.innerHTML = `${minutes}:${seconds}`;
+        }
+
+        if (maxTime == 0) {
           clearInterval(countdownInterval);
           next_q.click();
+          transform_time(duration)
+        } else {
+            transform_time(maxTime)
+            --maxTime;
         }
       }, 1000);
     }
